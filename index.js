@@ -10,7 +10,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use("/api/blogs", blogsRouter);
 
-const mongoUrl = "";
+const mongoUrl = ""; 
 mongoose.connect(mongoUrl);
 
 const PORT = 3003;
