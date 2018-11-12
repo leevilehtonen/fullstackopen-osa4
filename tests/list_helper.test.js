@@ -106,7 +106,7 @@ describe("favorite blog", () => {
 });
 
 describe("most blogs", () => {
-  test("when list has only one blog equals the most to that", () => {
+  test("when list has only one blog equals the most posts to that", () => {
     const result = listHelper.mostBlogs(listWithOneBlog);
     expect(result).toEqual({ author: "Edsger W. Dijkstra", blogs: 1 });
   });
@@ -118,5 +118,21 @@ describe("most blogs", () => {
   test("when list is empty equals null", () => {
     const result = listHelper.mostBlogs([]);
     expect(result).toEqual({ author: null, blogs: 0 });
+  });
+});
+
+describe("most likes", () => {
+  test("when list has only one blog equals the most likes to that", () => {
+    const result = listHelper.mostLikes(listWithOneBlog);
+    expect(result).toEqual({ author: "Edsger W. Dijkstra", likes: 5 });
+  });
+
+  test("when list has multiple blogs equels the favorite to the most likes having author", () => {
+    const result = listHelper.mostLikes(blogs);
+    expect(result).toEqual({ author: "Edsger W. Dijkstra", likes: 17 });
+  });
+  test("when list is empty equals null", () => {
+    const result = listHelper.mostLikes([]);
+    expect(result).toEqual({ author: null, likes: 0 });
   });
 });
