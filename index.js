@@ -11,7 +11,6 @@ app.use(bodyParser.json());
 app.use("/api/blogs", blogsRouter);
 
 const mongoUrl = "";
-
 mongoose.connect(mongoUrl);
 
 const PORT = 3003;

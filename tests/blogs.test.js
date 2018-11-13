@@ -64,6 +64,23 @@ describe("POST /api/blogs ", async () => {
   });
 });
 
+describe("DELETE /api/blogs ", async () => {
+  test("delete one existing", async () => {
+    await clean();
+    await createOne();
+    const response = await getAll();
+    const blog = response.body[0];
+    await api.delete("/api/blogs/" + blog._id).expect(204);
+  });
+  test("delete with invalid id", async () => {
+    await createOne();
+    const response = await getAll();
+    const blog = response.body[0];
+    blog._id = blog._id.substring(0, blog._id.length - 3) + "aaa";
+    await api.delete("/api/blogs/" + blog._id).expect(404);
+  });
+});
+
 const getAll = async () => {
   return await api
     .get("/api/blogs")
