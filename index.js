@@ -16,8 +16,19 @@ const mongoUrl = "";
 mongoose.connect(mongoUrl);
 
 const PORT = 3003;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+const server = http.createServer(app);
+
+if (!module.parent) {
+  server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+server.on("close", () => {
+  mongoose.connection.close();
 });
 
-module.exports = app;
+module.exports = {
+  app,
+  server
+};

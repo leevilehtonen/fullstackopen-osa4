@@ -1,5 +1,5 @@
 const supertest = require("supertest");
-const app = require("../index.js");
+const { app, server } = require("../index.js");
 const api = supertest(app);
 const Blog = require("../models/blog");
 const { initialBlogs, deleteFields } = require("./test_helper");
@@ -92,6 +92,10 @@ describe("PUT /api/blogs ", async () => {
       .expect(200);
     expect(response.body.title).not.toEqual(blog.title);
   });
+});
+
+afterAll(async () => {
+  server.close();
 });
 
 const getAll = async () => {
