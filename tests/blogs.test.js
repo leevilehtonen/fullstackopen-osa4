@@ -80,6 +80,19 @@ describe("DELETE /api/blogs ", async () => {
     await api.delete("/api/blogs/" + blog._id).expect(404);
   });
 });
+describe("PUT /api/blogs ", async () => {
+  test("update one existing", async () => {
+    await clean();
+    await createOne();
+    let response = await getAll();
+    const blog = response.body[0];
+    response = await api
+      .put("/api/blogs/" + blog._id)
+      .send({ title: "jessss" })
+      .expect(200);
+    expect(response.body.title).not.toEqual(blog.title);
+  });
+});
 
 const getAll = async () => {
   return await api
