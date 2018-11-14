@@ -1,14 +1,20 @@
 const userRouter = require("express").Router();
 const User = require("../models/user");
-var bcrypt = require("bcryptjs");
+const bcrypt = require("bcryptjs");
 
 userRouter.get("", async (request, response) => {
-  let users = await User.find({});
+  let users = await User.find({}).populate("blogs", {
+    title: 1,
+    author: 1,
+    url: 1,
+    likes: 1
+  });
   users = users.map(user => ({
     _id: user._id,
     username: user.username,
     name: user.name,
-    adult: user.adult
+    adult: user.adult,
+    blogs: user.blogs
   }));
   return response.json(users);
 });

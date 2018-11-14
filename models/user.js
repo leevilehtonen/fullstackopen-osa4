@@ -4,7 +4,13 @@ const User = mongoose.model("User", {
   username: String,
   passwordHash: String,
   name: String,
-  adult: Boolean
+  adult: Boolean,
+  blogs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Blog"
+    }
+  ]
 });
 
 module.exports = User;
